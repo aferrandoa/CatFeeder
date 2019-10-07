@@ -12,18 +12,9 @@
 	<div class="container">
 		<h1>CAT CAM</h1>
 		<h3><img src="{{ url_for('video_feed') }}"></h3>
-		<button id="open_button" class="btn">OPEN DOOR</button>
-		<button id="close_button" class="btn">CLOSE DOOR</button>
+		<button id="open_button" value="{{ url_for('open_action') }}" class="btn">OPEN DOOR</button>
+		<button id="close_button" value="{{ url_for('close_action') }}" class="btn">CLOSE DOOR</button>
 	</div>
-	<script type=text/javascript>
-		$('#open_button').click(function() {
-		  $.ajax({url: "{{ url_for('open_action') }}", success: function(result){}
-		  });
-		});
-		$('#close_button').click(function() {
-		  $.ajax({url: "{{ url_for('close_action') }}", success: function(result){}
-		  });
-		});
-	</script>
+	<script src="static/javascript/index.js" type=text/javascript ></script>
   </body>
 </html>

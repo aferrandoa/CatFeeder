@@ -2,14 +2,14 @@
 # -*- coding: utf-8 -*-
 #
 #  	server.py
-#  	based on tutorial ==> https://blog.miguelgrinberg.com/post/video-streaming-with-flask
 # 	PiCam Local Web Server with Flask
 
-from flask import Flask, render_template, Response, jsonify
+from flask import Flask, render_template, Response, jsonify, url_for
 
 # Raspberry Pi camera module (requires picamera package)
 from camera_pi import Camera
 import engine
+import database
 
 app = Flask(__name__)
 
