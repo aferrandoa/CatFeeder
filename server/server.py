@@ -5,11 +5,13 @@
 # 	PiCam Local Web Server with Flask
 
 from flask import Flask, render_template, Response, jsonify, url_for
+import json
 
 # Raspberry Pi camera module (requires picamera package)
 from camera_pi import Camera
 import engine
 import database
+import scheduler
 
 app = Flask(__name__)
 
@@ -47,5 +49,24 @@ def close_action():
     print("Action done")
     return jsonify(result="")
 
+@app.route('/get_jobs')
+def get_jobs():
+    """Get jobs list"""
+    jobs_list = scheduler.get_all_jobs()
+    print(jobs_list)
+
+    json_result = {
+        "id" : jobs_list[0].id,
+        "name": jobs_list[0].name
+    }
+
+    return jsonify(json_result)
+
+@app.route('/add_job')
+def add_job():
+    """Add a job"""
+    scheduler.add_job(engine.open_door)
+    return jsonify(result="")
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port =80, debug=True, threaded=True)
+    app.run(host='0.0.0.0', port=80, debug=False, threaded=True)

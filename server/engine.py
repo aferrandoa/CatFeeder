@@ -24,6 +24,7 @@ def initialize():
 def open_door():
     global p
     initialize()
+    print('Opening door...')
     p.ChangeDutyCycle(7.5) #Izquirerda 90
     time.sleep(0.5)
     p.ChangeDutyCycle(0)
@@ -31,6 +32,7 @@ def open_door():
 def close_door():
     global p
     initialize()
+    print('Closing door...')
     p.ChangeDutyCycle(11.1) #Centrar
     time.sleep(0.5)
     p.ChangeDutyCycle(0)

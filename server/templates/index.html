@@ -15,6 +15,12 @@
 		<button id="open_button" value="{{ url_for('open_action') }}" class="btn">OPEN DOOR</button>
 		<button id="close_button" value="{{ url_for('close_action') }}" class="btn">CLOSE DOOR</button>
 	</div>
+	<div class="container">
+		<input id="get_jobs" value="{{ url_for('get_jobs') }}" type="hidden" />
+		<h2>JOBS LIST</h2>
+		<button id="add_job_button" value="{{ url_for('add_job') }}" class="btn">ADD JOB</button>
+		<div id="jobs_list"></div>
+	</div>
 	<script src="static/javascript/index.js" type=text/javascript ></script>
   </body>
 </html>
