@@ -29,6 +29,14 @@ def open_door():
     time.sleep(0.5)
     p.ChangeDutyCycle(0)
 
+def feed():
+    global p
+    initialize()
+    print('Feeding cats...')
+    open_door()
+    time.sleep(2)
+    close_door()
+
 def close_door():
     global p
     initialize()

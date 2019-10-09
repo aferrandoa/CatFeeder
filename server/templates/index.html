@@ -7,6 +7,10 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<link href="https://unpkg.com/bootstrap-table@1.15.4/dist/bootstrap-table.min.css" rel="stylesheet">
+	<script src="https://unpkg.com/bootstrap-table@1.15.4/dist/bootstrap-table.min.js"></script>
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
   </head>
   <body>
 	<div class="container">
@@ -15,11 +19,41 @@
 		<button id="open_button" value="{{ url_for('open_action') }}" class="btn">OPEN DOOR</button>
 		<button id="close_button" value="{{ url_for('close_action') }}" class="btn">CLOSE DOOR</button>
 	</div>
+
 	<div class="container">
-		<input id="get_jobs" value="{{ url_for('get_jobs') }}" type="hidden" />
 		<h2>JOBS LIST</h2>
-		<button id="add_job_button" value="{{ url_for('add_job') }}" class="btn">ADD JOB</button>
-		<div id="jobs_list"></div>
+
+		<form action="#" onsubmit="add_job();return false">
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label for="jobNameInput">Job name</label>
+					<input type="text" class="form-control" id="jobNameInput">
+				</div>
+				<div class="form-group col-md-6">
+					<label for="jobTimeInput">Job time</label>
+					<input type="text" class="form-control timepicker" id="jobTimeInput">
+				</div>
+			</div>
+			<button id="add_job_button" value="{{ url_for('add_job') }}" type="submit" class="btn btn-primary">Add job</button>
+		</form>
+	</div>
+
+	<div class="container">	
+		<br/>
+		<input id="get_jobs" value="{{ url_for('get_jobs') }}" type="hidden" />
+		<table id="jobs_table" class="table-striped" data-id-field="id" 
+			data-single-select="true" data-click-to-select="true" data-toggle="jobs_table">
+			<thead>
+			  <tr>
+				<th data-field="state" data-checkbox="true"></th>
+				<th data-field="id">ID</th>
+				<th data-field="name">Name</th>
+				<th data-field="time">Time</th>
+			  </tr>
+			</thead>
+		</table>
+		<br/>
+		<button id="remove_job_button" value="{{ url_for('remove_job') }}" class="btn btn-primary">Remove</button>
 	</div>
 	<script src="static/javascript/index.js" type=text/javascript ></script>
   </body>

@@ -20,9 +20,13 @@ def get_all_jobs():
     '''Get the list of scheduled jobs'''
     return scheduler.get_jobs()
 
-def add_job(exe_func):
+def add_job(exe_func, job_name, sel_hour, sel_minute):
     '''Adds a job'''
-    scheduler.add_job(exe_func, 'interval', minutes=1, id='open_door_job')
+    scheduler.add_job(exe_func, 'cron', hour=sel_hour, minute=sel_minute, name=job_name)
+
+def remove_job(job_id):
+    '''Removes a job'''
+    scheduler.remove_job(job_id=job_id)
 
 scheduler = BackgroundScheduler()
 scheduler.configure(jobstores=jobstores)

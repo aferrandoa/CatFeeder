@@ -4,7 +4,7 @@
 #  	server.py
 # 	PiCam Local Web Server with Flask
 
-from flask import Flask, render_template, Response, jsonify, url_for
+from flask import Flask, render_template, Response, jsonify, url_for, request
 import json
 
 # Raspberry Pi camera module (requires picamera package)
@@ -53,19 +53,35 @@ def close_action():
 def get_jobs():
     """Get jobs list"""
     jobs_list = scheduler.get_all_jobs()
-    print(jobs_list)
 
-    json_result = {
-        "id" : jobs_list[0].id,
-        "name": jobs_list[0].name
-    }
+    if len(jobs_list) is 0:
+        return jsonify(json.loads("[]"))
 
-    return jsonify(json_result)
+    json_result="["
+
+    for current in jobs_list:
+        current_json = '{"id": "' + current.id + '", "name": "' + current.name + '", "time": "' + str(current.trigger.fields[5]) + ':' + str(current.trigger.fields[6]) + '"},'
+        json_result += current_json
+
+    json_result = (json_result[:-1] + ']')
+
+    return jsonify(json.loads(json_result))
 
 @app.route('/add_job')
 def add_job():
     """Add a job"""
-    scheduler.add_job(engine.open_door)
+    job_name = request.args.get('job_name')
+    hour = request.args.get('hour')
+    minute = request.args.get('minute')
+
+    scheduler.add_job(engine.feed, job_name, hour, minute)
+    return jsonify(result="")
+
+@app.route('/remove_job')
+def remove_job():
+    """Remove a job"""
+    job_id = request.args.get('job_id')
+    scheduler.remove_job(job_id)
     return jsonify(result="")
 
 if __name__ == '__main__':
