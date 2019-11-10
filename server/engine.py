@@ -18,7 +18,7 @@ def initialize():
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(servoPIN, GPIO.OUT)
         p = GPIO.PWM(servoPIN, 50)
-        p.start(11.1) # Initialization
+        p.start(11.4) # Initialization
         time.sleep(0.5)        
 		
 def open_door():
@@ -41,6 +41,6 @@ def close_door():
     global p
     initialize()
     print('Closing door...')
-    p.ChangeDutyCycle(11.1) #Centrar
+    p.ChangeDutyCycle(11.4) #Centrar
     time.sleep(0.5)
     p.ChangeDutyCycle(0)
